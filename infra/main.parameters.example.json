@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "_komentar": "Primjer parametara. Skripta scripts/03-deploy-infra.ps1 generira main.parameters.generated.json automatski iz config.local.json. Ovu datoteku koristite samo ako deployate rucno preko 'az deployment sub create'.",
+  "parameters": {
+    "location": { "value": "westeurope" },
+    "companyName": { "value": "technova" },
+    "environmentName": { "value": "prod" },
+    "resourceGroupName": { "value": "TechNova-RG" },
+    "adminUsername": { "value": "azureuser" },
+    "vmAdminPassword": { "value": "ZAMIJENITE-JAKOM-LOZINKOM" },
+    "devGroupObjectId": { "value": "00000000-0000-0000-0000-000000000000" },
+    "salesGroupObjectId": { "value": "00000000-0000-0000-0000-000000000000" },
+    "supportGroupObjectId": { "value": "00000000-0000-0000-0000-000000000000" },
+    "alertEmail": { "value": "ime.prezime@algebra.hr" },
+    "allowedAdminIp": { "value": "" },
+    "vmSize": { "value": "Standard_B2ls_v2" },
+    "appServiceSku": { "value": "S1" },
+    "deployAks": { "value": true },
+    "deploySql": { "value": true },
+    "deployAppService": { "value": true },
+    "deployBackup": { "value": true },
+    "deployVmss": { "value": false },
+    "deployBastion": { "value": false },
+    "deployAppGateway": { "value": false },
+    "appGwPfxBase64": { "value": "" },
+    "appGwPfxPassword": { "value": "" }
+  }
+}

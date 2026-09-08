@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "opis": "Probni predlozak koji skripta 00-preduvjeti.ps1 koristi za provjeru je li odabrana regija otvorena za pretplatu i je li trazena velicina VM-a stvarno dostupna. Namjerno je RAVAN (bez ugnijezdenih deploymenta) jer Azure kod validacije preskace ugnijezdene predloske, pa se VM inace uopce ne bi provjerio."
+  },
+  "parameters": {
+    "location": { "type": "string" },
+    "vmSize": { "type": "string" }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2023-11-01",
+      "name": "technova-probe-vnet",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": { "addressPrefixes": [ "10.99.0.0/16" ] },
+        "subnets": [
+          { "name": "default", "properties": { "addressPrefix": "10.99.1.0/24" } }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2023-11-01",
+      "name": "technova-probe-nic",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "technova-probe-vnet" ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": { "id": "[concat(resourceId('Microsoft.Network/virtualNetworks','technova-probe-vnet'),'/subnets/default')]" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2023-09-01",
+      "name": "[concat('technova-probe-law-', uniqueString(subscription().id))]",
+      "location": "[parameters('location')]",
+      "properties": { "sku": { "name": "PerGB2018" }, "retentionInDays": 30 }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2023-09-01",
+      "name": "technova-probe-vm",
+      "location": "[parameters('location')]",
+      "dependsOn": [ "technova-probe-nic" ],
+      "properties": {
+        "hardwareProfile": { "vmSize": "[parameters('vmSize')]" },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "Canonical",
+            "offer": "0001-com-ubuntu-server-jammy",
+            "sku": "22_04-lts-gen2",
+            "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "managedDisk": { "storageAccountType": "StandardSSD_LRS" }
+          }
+        },
+        "osProfile": {
+          "computerName": "probevm",
+          "adminUsername": "azureuser",
+          "adminPassword": "SamoZaProvjeru-Nikad-Koristena-42"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            { "id": "[resourceId('Microsoft.Network/networkInterfaces','technova-probe-nic')]" }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+# ---------------------------------------------------------------------
+#  Tajne i lokalna konfiguracija - NIKADA ne smiju u repozitorij
+# ---------------------------------------------------------------------
+config.local.json
+BREAK-GLASS-LOZINKA.txt
+TESTNI-KORISNICI.txt
+VM-ADMIN-LOZINKA.txt
+*.pfx
+*.pem
+*.key
+
+# Generirani parametri deploymenta (sadrže lozinke)
+infra/main.parameters.generated.json
+
+# Kompajlirani ARM predlošci (nastaju iz .bicep datoteka)
+infra/**/*.json
+!infra/main.parameters.example.json
+!infra/probe-region.json
+
+# ---------------------------------------------------------------------
+#  Dokazi (screenshotovi mogu biti veliki - uključite samo ono što treba)
+# ---------------------------------------------------------------------
+docs/dokazi/*.png
+docs/dokazi/*.jpg
+# ---------------------------------------------------------------------
+#  Radni materijali - ostaju lokalno, ne idu u repozitorij
+# ---------------------------------------------------------------------
+# Pomocne skripte (u repozitoriju su samo skripte zivotnog ciklusa 00-06, 99
+# i deploy-all, uz zajednicku biblioteku lib/Common.ps1)
+scripts/dokazi-balansiranje.ps1
+scripts/dokazi-pristup-bez-lozinke.ps1
+scripts/izradi-dokumentaciju.ps1
+scripts/portal-linkovi.ps1
+scripts/prebaci-na-aks.ps1
+scripts/pristup-aks.ps1
+scripts/provjeri-ishod5.ps1
+scripts/provjeri-licencu.ps1
+scripts/lib/DocxWriter.ps1
+scripts/lib/PdfPrinter.ps1
+evidence/
+
+# Prikupljeni dokazi i snimke zaslona (ugradeni su u PDF dokumentaciju)
+docs/dokazi/
+
+# Izvori i predlosci za izradu dokumentacije
+docs/predlozak/
+docs/predlozak-word/
+docs/arhitektura.md
+docs/dokumentacija-skeleton.md
+docs/UPUTE.md
+
+# Gotova dokumentacija - sadrzi snimke zaslona i identifikatore okruzenja
+# (subscription ID, tenant ID, nazivi resursa), pa se predaje zasebno
+docs/*.pdf
+docs/*.docx
+
+# ---------------------------------------------------------------------
+#  Alati i OS
+# ---------------------------------------------------------------------
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+*.zip
+*.log
+*.tmp
+*.bak
+
+# Privremene datoteke Officea (nastaju dok je dokument otvoren u Wordu)
+~$*
+
+# Medukorak izrade dokumentacije (PDF i DOCX se generiraju skriptom)
+docs/dokumentacija.html

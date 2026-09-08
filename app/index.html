@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TechNova Solutions - Interni portal</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            margin: 0; padding: 0;
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            min-height: 100vh; color: #323130;
+        }
+        header { padding: 48px 24px 24px; text-align: center; color: #fff; }
+        header h1 { margin: 0 0 8px; font-size: 34px; font-weight: 600; }
+        header p { margin: 0; opacity: .9; }
+        main { max-width: 1000px; margin: 0 auto; padding: 24px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card {
+            background: #fff; border-radius: 8px; padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,.15);
+        }
+        .card h2 { margin: 0 0 12px; font-size: 17px; color: #0078d4; }
+        .card p  { margin: 0; font-size: 14px; line-height: 1.65; color: #605e5c; }
+        .badge {
+            display: inline-block; background: #107c10; color: #fff;
+            padding: 3px 10px; border-radius: 12px; font-size: 12px; margin-top: 12px;
+        }
+        footer {
+            text-align: center; color: rgba(255,255,255,.85);
+            padding: 32px 24px 48px; font-size: 13px; line-height: 1.8;
+        }
+        code { background: #f3f2f1; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TechNova Solutions d.o.o.</h1>
+        <p>Interni poslovni portal &middot; Azure App Service (PaaS)</p>
+    </header>
+
+    <main>
+        <div class="grid">
+            <div class="card">
+                <h2>Platforma</h2>
+                <p>Aplikacija se izvodi na Azure App Service planu razine Standard (S1),
+                   na Linux okru&#382;enju. Ne upravljamo poslu&#382;iteljem, operativnim sustavom
+                   ni zakrpama &ndash; to je odgovornost platforme.</p>
+                <span class="badge">PaaS</span>
+            </div>
+
+            <div class="card">
+                <h2>Automatsko skaliranje</h2>
+                <p>Broj instanci raste s 1 na najvi&#353;e 3 kada prosje&#269;na iskori&#353;tenost
+                   procesora prije&#273;e 70 % ili memorije 80 % kroz 5 minuta, i vra&#263;a se
+                   natrag kada optere&#263;enje padne ispod 30 %.</p>
+                <span class="badge">1 &ndash; 3 instance</span>
+            </div>
+
+            <div class="card">
+                <h2>Sigurnost prijenosa</h2>
+                <p>Postavka <code>httpsOnly</code> prisilno preusmjerava sav HTTP promet
+                   na HTTPS. Minimalna dopu&#353;tena verzija je TLS 1.2, a FTP/FTPS objava
+                   je potpuno onemogu&#263;ena.</p>
+                <span class="badge">HTTPS only</span>
+            </div>
+
+            <div class="card">
+                <h2>Identitet bez lozinke</h2>
+                <p>Aplikacija ima dodijeljen sistemski Managed Identity kojim pristupa
+                   Key Vaultu i objektnoj pohrani. U konfiguraciji nema nijedne lozinke
+                   ni pristupnog klju&#269;a.</p>
+                <span class="badge">Managed Identity</span>
+            </div>
+
+            <div class="card">
+                <h2>Nadzor</h2>
+                <p>Application Insights prati zahtjeve, iznimke i vrijeme odziva.
+                   HTTP logovi, konzolni logovi i platformski logovi &#353;alju se u
+                   zajedni&#269;ki Log Analytics workspace.</p>
+                <span class="badge">Application Insights</span>
+            </div>
+
+            <div class="card">
+                <h2>Alarmi</h2>
+                <p>Ako aplikacija u pet minuta vrati vi&#353;e od deset HTTP 5xx odgovora,
+                   aktivira se alarm i Action Group &#353;alje obavijest administratorima
+                   elektroni&#269;kom po&#353;tom.</p>
+                <span class="badge">HTTP 5xx &gt; 10</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Implementacija ra&#269;unarstva u oblaku &middot; Sveu&#269;ili&#353;te Algebra Bernays<br>
+        Cjelokupna infrastruktura definirana je Bicep predlo&#353;cima (Infrastructure as Code).
+    </footer>
+</body>
+</html>
